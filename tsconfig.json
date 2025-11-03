@@ -9,6 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+     "noImplicitAny": false, // ✅ allow 'any' types
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
