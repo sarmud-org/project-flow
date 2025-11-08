@@ -1,3 +1,4 @@
+"use client";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -51,7 +52,7 @@ export const Sidebar = () => {
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[240px]">
+          <DropdownMenuContent className="w-60">
             <DropdownMenuItem>Acme Corp</DropdownMenuItem>
             <DropdownMenuItem>Design Agency</DropdownMenuItem>
             <DropdownMenuItem className="text-primary">
@@ -74,7 +75,7 @@ export const Sidebar = () => {
               <ChevronDown className="h-3 w-3 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[240px]">
+          <DropdownMenuContent className="w-60">
             <DropdownMenuItem>Product Team</DropdownMenuItem>
             <DropdownMenuItem>Marketing Team</DropdownMenuItem>
             <DropdownMenuItem>Engineering</DropdownMenuItem>
