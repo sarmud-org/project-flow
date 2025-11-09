@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Layout } from "@/components/Layout";
 import {
   Card,
   CardContent,
@@ -21,10 +20,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Search, MessageCircle, Book, Mail } from "lucide-react";
 import { toast } from "sonner";
 
-const Help = () => {
+const HelpComponent = () => {
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent", {
+    toast("Message sent", {
       description: "Our team will get back to you shortly",
     });
   };
@@ -161,4 +160,4 @@ const Help = () => {
   );
 };
 
-export default Help;
+export default HelpComponent;

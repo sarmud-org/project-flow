@@ -1,13 +1,10 @@
 "use client";
 import {
   LayoutDashboard,
-  FolderKanban,
   FileText,
   Users,
   Settings,
   ChevronDown,
-  MapIcon,
-  Building2,
   HelpCircle,
   User,
 } from "lucide-react";
@@ -19,12 +16,10 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Building2, label: "Organizations", path: "/organizations" },
-  { icon: FolderKanban, label: "Projects", path: "/projects" },
-  { icon: MapIcon, label: "Roadmap", path: "/roadmap" },
   { icon: FileText, label: "Documents", path: "/documents" },
   { icon: Users, label: "Team", path: "/team" },
 ];
@@ -36,6 +31,12 @@ const bottomNavItems = [
 ];
 
 export const Sidebar = () => {
+  // params
+  const params = useParams<{ orgName: string; projectId: string }>();
+  const pathName = usePathname();
+
+  console.log({ pathName });
+
   return (
     <aside className="w-[280px] border-r border-border bg-card flex flex-col">
       {/* Organization Selector */}
@@ -92,14 +93,12 @@ export const Sidebar = () => {
           {navItems.map((item) => (
             <Link
               key={item.path}
-              href={item.path}
-              /*  className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`
-              } */
+              href={`/${params.orgName}${item.path}`}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                pathName === `/${params.orgName}${item.path}`
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              }`}
             >
               <item.icon className="h-4 w-4" />
               {item.label}
@@ -111,14 +110,12 @@ export const Sidebar = () => {
           {bottomNavItems.map((item) => (
             <Link
               key={item.path}
-              href={item.path}
-              /*  className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`
-              } */
+              href={`/${params.orgName}${item.path}`}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                pathName === `/${params.orgName}${item.path}`
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              }`}
             >
               <item.icon className="h-4 w-4" />
               {item.label}

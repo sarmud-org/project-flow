@@ -1,9 +1,10 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Bell, Search, Sun, Moon } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { useState } from "react";
 
-export const Header = () => {
+export const DashboardHeader = () => {
   const [isDark, setIsDark] = useState(false);
 
   const toggleTheme = () => {

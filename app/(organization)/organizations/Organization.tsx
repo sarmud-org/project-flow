@@ -155,7 +155,7 @@ export default function OrganizationsComponent() {
                   <Card
                     key={org.id}
                     className="hover:shadow-lg transition-all cursor-pointer group border-2 hover:border-primary/20"
-                    onClick={() => router.push(`/organizations/${org.id}`)}
+                    onClick={() => router.push(`/${org.id}/dashboard`)}
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between">
