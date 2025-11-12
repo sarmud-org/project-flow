@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,26 +41,26 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="flex justify-center mb-8">
-          <Link href="/" className="flex items-center gap-2">
-            <Rocket className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">ProjectFlow</span>
-          </Link>
-        </div>
-
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-            <CardDescription>
+    <div className="min-h-screen bg-linear-to-br from-background via-background/90 to-muted flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+        {/* Login Card */}
+        <Card className="shadow-lg border-border/60">
+          <CardHeader className="space-y-1 text-center sm:text-left">
+            <CardTitle className="text-2xl sm:text-3xl font-bold">
+              Welcome back 👋
+            </CardTitle>
+            <CardDescription className="text-sm sm:text-base text-muted-foreground">
               Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
+
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+              {/* Email Field */}
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-sm sm:text-base">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -67,14 +68,19 @@ const LoginComponent = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Password Field */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="text-sm sm:text-base">
+                    Password
+                  </Label>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-primary hover:underline"
+                    className="text-xs sm:text-sm text-primary hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -85,9 +91,16 @@ const LoginComponent = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                className="w-full h-10 sm:h-11 text-sm sm:text-base font-medium"
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -98,7 +111,9 @@ const LoginComponent = () => {
                 )}
               </Button>
             </form>
-            <div className="relative my-6">
+
+            {/* Divider */}
+            <div className="relative my-6 sm:my-8">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-border" />
               </div>
@@ -108,12 +123,19 @@ const LoginComponent = () => {
                 </span>
               </div>
             </div>
-            <Button variant="outline" className="w-full">
+
+            {/* Google Button */}
+            <Button
+              variant="outline"
+              className="w-full h-10 sm:h-11 text-sm sm:text-base"
+            >
               <Mail className="mr-2 h-4 w-4" />
               Google
             </Button>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-2">
+
+          {/* Footer */}
+          <CardFooter className="flex flex-col space-y-3">
             <div className="text-sm text-muted-foreground text-center">
               Don&apos;t have an account?{" "}
               <Link
@@ -125,10 +147,12 @@ const LoginComponent = () => {
             </div>
           </CardFooter>
         </Card>
-        <div className="mt-4 text-center">
+
+        {/* Back to Home */}
+        <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-muted-foreground hover:text-foreground"
+            className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Back to home
           </Link>

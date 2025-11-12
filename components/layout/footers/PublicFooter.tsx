@@ -1,110 +1,89 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
 import Link from "next/link";
 
 export default function PublicFooter() {
   return (
-    <footer className="border-t border-border px-12">
-      <div className="container py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+    <footer className="border-t border-border bg-background px-6 sm:px-8 lg:px-12 2xl:px-24">
+      <div className="mx-auto max-w-360 py-12">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          {/* Brand Column */}
+          <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
               <Rocket className="h-5 w-5 text-primary" />
-              <span className="font-bold">ProjectFlow</span>
+              <span className="font-bold text-lg">ProjectFlow</span>
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground mb-4 max-w-xs mx-auto sm:mx-0">
               Modern project management for modern teams.
             </p>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <span className="sr-only">Twitter</span>
+            <div className="flex justify-center sm:justify-start gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-8 h-8 p-0 rounded-full"
+                aria-label="Twitter"
+              >
                 𝕏
               </Button>
-              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <span className="sr-only">LinkedIn</span>
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-8 h-8 p-0 rounded-full"
+                aria-label="LinkedIn"
+              >
                 in
               </Button>
-              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <span className="sr-only">GitHub</span>@
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-8 h-8 p-0 rounded-full"
+                aria-label="GitHub"
+              >
+                @
               </Button>
             </div>
           </div>
-          <div>
-            <h4 className="font-semibold mb-3">Product</h4>
+
+          {/* Product Links */}
+          <div className="text-center sm:text-left">
+            <h4 className="font-semibold mb-3 text-foreground">Product</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Security
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Roadmap
-                </Link>
-              </li>
+              {["Features", "Pricing", "Security", "Roadmap"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          <div>
-            <h4 className="font-semibold mb-3">Company</h4>
+
+          {/* Company Links */}
+          <div className="text-center sm:text-left">
+            <h4 className="font-semibold mb-3 text-foreground">Company</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
+              {["About", "Blog", "Careers", "Contact"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          <div>
-            <h4 className="font-semibold mb-3">Legal</h4>
+
+          {/* Legal Links */}
+          <div className="text-center sm:text-left">
+            <h4 className="font-semibold mb-3 text-foreground">Legal</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link
@@ -133,12 +112,11 @@ export default function PublicFooter() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+
+        {/* Divider & Bottom Section */}
+        <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
           <p className="text-sm text-muted-foreground">
-            &copy; 2025 ProjectFlow. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Made with ❤️ for project teams everywhere
+            &copy; {new Date().getFullYear()} ProjectFlow. All rights reserved.
           </p>
         </div>
       </div>

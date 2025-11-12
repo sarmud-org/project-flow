@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 
-const SignupCompoenent = () => {
+const SignupComponent = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,10 +37,11 @@ const SignupCompoenent = () => {
       return;
     }
     if (!formData.agreeToTerms) {
-      toast.error("Terms required");
+      toast.error("You must agree to the terms");
       return;
     }
     setIsLoading(true);
+
     setTimeout(() => {
       toast.success("Account created!", {
         description: "Please verify your email",
@@ -50,27 +52,26 @@ const SignupCompoenent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="flex justify-center mb-8">
-          <Link href="/" className="flex items-center gap-2">
-            <Rocket className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">ProjectFlow</span>
-          </Link>
-        </div>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">
+    <div className="min-h-screen bg-linear-to-br from-background via-background/90 to-muted flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+        {/* Signup Card */}
+        <Card className="shadow-lg border-border/60">
+          <CardHeader className="text-center sm:text-left space-y-1">
+            <CardTitle className="text-2xl sm:text-3xl font-bold">
               Create an account
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-sm sm:text-base text-muted-foreground">
               Enter your information to get started
             </CardDescription>
           </CardHeader>
+
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+              {/* Name */}
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-sm sm:text-base">
+                  Full Name
+                </Label>
                 <Input
                   id="name"
                   type="text"
@@ -80,10 +81,15 @@ const SignupCompoenent = () => {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-sm sm:text-base">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -93,10 +99,16 @@ const SignupCompoenent = () => {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Organization (Optional) */}
               <div className="space-y-2">
-                <Label htmlFor="organizationName">
+                <Label
+                  htmlFor="organizationName"
+                  className="text-sm sm:text-base"
+                >
                   Organization Name (Optional)
                 </Label>
                 <Input
@@ -110,10 +122,15 @@ const SignupCompoenent = () => {
                       organizationName: e.target.value,
                     })
                   }
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-sm sm:text-base">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -122,10 +139,18 @@ const SignupCompoenent = () => {
                     setFormData({ ...formData, password: e.target.value })
                   }
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Confirm Password */}
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label
+                  htmlFor="confirmPassword"
+                  className="text-sm sm:text-base"
+                >
+                  Confirm Password
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -137,8 +162,11 @@ const SignupCompoenent = () => {
                     })
                   }
                   required
+                  className="h-10 sm:h-11 text-sm sm:text-base"
                 />
               </div>
+
+              {/* Terms Agreement */}
               <div className="flex items-start space-x-2">
                 <Checkbox
                   id="terms"
@@ -149,25 +177,35 @@ const SignupCompoenent = () => {
                       agreeToTerms: checked as boolean,
                     })
                   }
+                  className="mt-1"
                 />
                 <label
                   htmlFor="terms"
-                  className="text-sm text-muted-foreground leading-none"
+                  className="text-xs sm:text-sm text-muted-foreground leading-snug"
                 >
                   I agree to the{" "}
-                  <Link href="/terms" className="text-primary hover:underline">
+                  <Link
+                    href="/terms"
+                    className="text-primary hover:underline font-medium"
+                  >
                     Terms
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/privacy"
-                    className="text-primary hover:underline"
+                    className="text-primary hover:underline font-medium"
                   >
                     Privacy Policy
                   </Link>
                 </label>
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+
+              {/* Submit */}
+              <Button
+                type="submit"
+                className="w-full h-10 sm:h-11 text-sm sm:text-base font-medium"
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -178,7 +216,9 @@ const SignupCompoenent = () => {
                 )}
               </Button>
             </form>
-            <div className="relative my-6">
+
+            {/* Divider */}
+            <div className="relative my-6 sm:my-8">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-border" />
               </div>
@@ -188,13 +228,20 @@ const SignupCompoenent = () => {
                 </span>
               </div>
             </div>
-            <Button variant="outline" className="w-full">
+
+            {/* Google Button */}
+            <Button
+              variant="outline"
+              className="w-full h-10 sm:h-11 text-sm sm:text-base"
+            >
               <Mail className="mr-2 h-4 w-4" />
               Google
             </Button>
           </CardContent>
-          <CardFooter>
-            <div className="text-sm text-muted-foreground text-center w-full">
+
+          {/* Footer */}
+          <CardFooter className="flex flex-col space-y-3">
+            <div className="text-sm text-muted-foreground text-center">
               Already have an account?{" "}
               <Link
                 href="/login"
@@ -205,10 +252,12 @@ const SignupCompoenent = () => {
             </div>
           </CardFooter>
         </Card>
-        <div className="mt-4 text-center">
+
+        {/* Back to home */}
+        <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-muted-foreground hover:text-foreground"
+            className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Back to home
           </Link>
@@ -218,4 +267,4 @@ const SignupCompoenent = () => {
   );
 };
 
-export default SignupCompoenent;
+export default SignupComponent;

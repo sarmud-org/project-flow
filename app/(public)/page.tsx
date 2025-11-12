@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -5,8 +6,6 @@ import {
   BarChart3,
   Users,
   FileText,
-  Rocket,
-  Shield,
   Zap,
   Clock,
   TrendingUp,
@@ -60,35 +59,31 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative container py-20 md:py-32 overflow-hidden">
-        {/* Background decorative elements */}
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* HERO SECTION */}
+      <section className="relative w-full py-20 md:py-32 px-6 sm:px-8 lg:px-12 2xl:px-24 overflow-hidden">
+        {/* Decorative background */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-20 right-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-20 right-[15%] w-[25rem] md:w-[35rem] xl:w-[45rem] h-[25rem] md:h-[35rem] xl:h-[45rem] bg-primary/5 rounded-full blur-3xl animate-pulse" />
           <div
-            className="absolute bottom-20 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse"
+            className="absolute bottom-20 left-[10%] w-[25rem] md:w-[35rem] xl:w-[45rem] h-[25rem] md:h-[35rem] xl:h-[45rem] bg-accent/5 rounded-full blur-3xl animate-pulse"
             style={{ animationDelay: "1s" }}
           />
         </div>
 
-        <div
-          className={`mx-auto flex max-w-6xl flex-col items-center text-center transition-all duration-1000 ${"opacity-100 translate-y-0"}`}
-        >
-          <div className="inline-flex items-center rounded-full border border-border bg-muted px-4 py-1.5 text-sm mb-8 hover:border-primary/50 transition-colors">
+        <div className="mx-auto max-w-[90rem] flex flex-col items-center text-center">
+          <div className="inline-flex items-center rounded-full border border-border bg-muted/60 px-4 py-1.5 text-sm mb-8 hover:border-primary/50 transition-colors backdrop-blur-sm">
             <Zap className="mr-2 h-4 w-4 text-primary" />
             <span className="text-muted-foreground">
               Transform your project management
             </span>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl mb-6 bg-linear-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-            Manage Projects with
-            <br />
-            Clarity and Confidence
+          <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+            Manage Projects with <br /> Clarity and Confidence
           </h1>
 
-          <p className="text-xl text-muted-foreground mb-10 max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl leading-relaxed">
             From roadmaps to execution, track every phase of your projects with
             intuitive dashboards, real-time collaboration, and client-ready
             presentations that replace PowerPoint.
@@ -115,10 +110,10 @@ const Index = () => {
             </Link>
           </div>
 
-          {/* Mock dashboard preview */}
-          <div className="relative w-full max-w-5xl mx-auto mt-8">
-            <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
-            <div className="rounded-xl border border-border shadow-2xl overflow-hidden bg-card backdrop-blur-sm">
+          {/* Dashboard mock */}
+          <div className="relative w-full max-w-7xl mx-auto mt-8">
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
+            <div className="rounded-2xl border border-border shadow-2xl overflow-hidden bg-card backdrop-blur-md">
               <div className="bg-muted/50 border-b border-border px-4 py-3 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-destructive/60" />
@@ -129,12 +124,12 @@ const Index = () => {
                   ProjectFlow Dashboard
                 </div>
               </div>
-              <div className="aspect-video bg-linear-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center p-8">
-                <div className="grid grid-cols-3 gap-4 w-full max-w-3xl">
+              <div className="aspect-video bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center p-6 md:p-10">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 w-full max-w-4xl">
                   {[BarChart3, Users, FileText].map((Icon, i) => (
                     <Card
                       key={i}
-                      className="p-6 hover:shadow-lg transition-all hover:-translate-y-1 opacity-80"
+                      className="p-6 hover:shadow-lg transition-all hover:-translate-y-1 opacity-90"
                     >
                       <Icon className="h-8 w-8 text-primary mb-3" />
                       <div className="h-2 bg-muted rounded mb-2" />
@@ -148,60 +143,56 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="container py-24 bg-muted/30">
-        <div className="mx-auto max-w-6xl">
+      {/* FEATURES */}
+      <section className="w-full bg-muted/30 py-20 md:py-28 px-6 sm:px-8 lg:px-12 2xl:px-24">
+        <div className="mx-auto max-w-360">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Everything you need to succeed
             </h2>
             <p className="text-muted-foreground text-lg">
               Powerful features to manage projects from start to finish
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-border hover:border-primary/50">
-              <BarChart3 className="h-12 w-12 text-primary mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">
-                Interactive Dashboards
-              </h3>
-              <p className="text-muted-foreground">
-                Real-time analytics and charts to visualize project progress,
-                velocity, and team performance.
-              </p>
-            </Card>
-            <Card className="p-6 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-border hover:border-primary/50">
-              <Users className="h-12 w-12 text-primary mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">Team Collaboration</h3>
-              <p className="text-muted-foreground">
-                Assign tasks, track progress, and communicate seamlessly with
-                your entire team in one place.
-              </p>
-            </Card>
-            <Card className="p-6 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-border hover:border-primary/50">
-              <FileText className="h-12 w-12 text-primary mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">
-                Client Presentations
-              </h3>
-              <p className="text-muted-foreground">
-                Generate beautiful, presentation-ready views that replace
-                PowerPoint with live data.
-              </p>
-            </Card>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[BarChart3, Users, FileText].map((Icon, i) => (
+              <Card
+                key={i}
+                className="p-6 group hover:shadow-xl hover:-translate-y-1 transition-all border-border hover:border-primary/50"
+              >
+                <Icon className="h-12 w-12 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                <h3 className="text-xl font-semibold mb-2">
+                  {i === 0
+                    ? "Interactive Dashboards"
+                    : i === 1
+                    ? "Team Collaboration"
+                    : "Client Presentations"}
+                </h3>
+                <p className="text-muted-foreground">
+                  {i === 0
+                    ? "Visualize progress and performance with real-time analytics."
+                    : i === 1
+                    ? "Collaborate seamlessly with your entire team in one place."
+                    : "Generate presentation-ready client views with live data."}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="container py-24">
-        <div className="mx-auto max-w-6xl">
+      {/* BENEFITS */}
+      <section className="w-full py-20 md:py-28 px-6 sm:px-8 lg:px-12 2xl:px-24">
+        <div className="mx-auto max-w-360">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Drive real outcomes</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Drive real outcomes
+            </h2>
             <p className="text-muted-foreground text-lg">
               Not just features — measurable results for your team
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, i) => (
               <Card
                 key={i}
@@ -218,18 +209,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="container py-24 bg-muted/30">
-        <div className="mx-auto max-w-6xl">
+      {/* TESTIMONIALS */}
+      <section className="w-full bg-muted/30 py-20 md:py-28 px-6 sm:px-8 lg:px-12 2xl:px-24">
+        <div className="mx-auto max-w-360">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Loved by teams worldwide
             </h2>
             <p className="text-muted-foreground text-lg">
               See what our customers have to say
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, i) => (
               <Card
                 key={i}
@@ -266,87 +257,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How it Works Section */}
-      <section className="container py-24">
+      {/* CTA */}
+      <section className="w-full py-20 md:py-28 px-6 sm:px-8 lg:px-12 2xl:px-24">
         <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Built for modern teams</h2>
-            <p className="text-muted-foreground text-lg">
-              Simple workflow, powerful results
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                  1
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Plan your roadmap</h4>
-                  <p className="text-muted-foreground">
-                    Organize phases and tasks visually with intuitive
-                    drag-and-drop
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                  2
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Track in real-time</h4>
-                  <p className="text-muted-foreground">
-                    See changes instantly as your team updates tasks and
-                    milestones
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                  3
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">
-                    Present with confidence
-                  </h4>
-                  <p className="text-muted-foreground">
-                    Share beautiful client views with live data and rich
-                    analytics
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                  4
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Deliver on time</h4>
-                  <p className="text-muted-foreground">
-                    Track velocity, burndown, and resource allocation to stay on
-                    target
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-accent/20 rounded-lg blur-2xl opacity-50" />
-              <div className="relative bg-linear-to-br from-primary/10 to-accent/10 rounded-xl p-8 border border-border">
-                <div className="aspect-square bg-card rounded-lg shadow-2xl flex items-center justify-center">
-                  <Shield className="h-32 w-32 text-primary/30" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="container py-24">
-        <div className="mx-auto max-w-4xl">
           <Card className="relative overflow-hidden bg-linear-to-br from-primary/10 via-background to-accent/10 border-primary/20">
-            <div className="absolute inset-0 bg-grid-pattern opacity-5" />
             <div className="relative p-12 text-center">
-              <h2 className="text-3xl font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to transform your workflow?
               </h2>
               <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
