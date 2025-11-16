@@ -12,32 +12,101 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Rocket, Loader2, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Loader2, Mail } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
+import { login } from "@/services/api/authApi";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    setTimeout(() => {
-      if (email && password) {
+    if (!email || !password) {
+      toast.error("Login failed", {
+        description: "Please enter your email and password",
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      // 🔥 API CALL
+      const res = await login({
+        email,
+        password,
+      });
+
+      if (res.status === 200 || res.status === 201) {
+        // Check if JWT token is stored in cookies
+        if (typeof document !== "undefined") {
+          const cookies = document.cookie.split(";");
+          console.log("All cookies after login:", cookies);
+
+          // Check for common JWT cookie names
+          const accessToken = cookies.find((cookie) =>
+            cookie.trim().startsWith("access_token=")
+          );
+          const refreshToken = cookies.find((cookie) =>
+            cookie.trim().startsWith("refresh_token=")
+          );
+
+          console.log("Access Token Cookie:", accessToken || "Not found");
+          console.log("Refresh Token Cookie:", refreshToken || "Not found");
+        }
+
         toast.success("Login successful", { description: "Welcome back!" });
-        router.replace("/organizations");
-      } else {
-        toast.error("Login failed", {
-          description: "Please check your credentials",
-        });
+
+        // Redirect to the original page if redirect param exists, otherwise go to organizations
+        const redirectPath = redirect || "/organizations";
+        router.replace(redirectPath);
       }
+    } catch (err: any) {
+      console.error("Login Error:", err);
+
+      let errorMessage = "Login failed. Please try again.";
+
+      if (err.response) {
+        const status = err.response.status;
+
+        switch (status) {
+          case 400:
+            errorMessage = err.response.data?.message || "Invalid credentials.";
+            break;
+          case 401:
+            errorMessage = "Invalid email or password.";
+            break;
+          case 403:
+            errorMessage = "You do not have access to perform this action.";
+            break;
+          case 404:
+            errorMessage = "Login service not found. Please contact support.";
+            break;
+          case 500:
+          default:
+            errorMessage = "Server error. Please try again later.";
+            break;
+        }
+      } else if (err.request) {
+        errorMessage = "Network error. Check your internet connection.";
+      } else {
+        errorMessage = err.message || "Unexpected error occurred.";
+      }
+
+      toast.error("Login failed", {
+        description: errorMessage,
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (

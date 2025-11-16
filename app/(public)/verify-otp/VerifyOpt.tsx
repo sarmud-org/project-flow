@@ -14,15 +14,16 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useRouter } from "next/navigation"; // 👈 import here
+import { useRouter } from "next/navigation"; // TODO: Uncomment when ready to redirect
 import { toast } from "sonner";
 import Link from "next/link";
+import { verifyEmail, resentEmailVerification } from "@/services/api/authApi";
 
 const VerifyOTPComponent = ({ email }: { email: string }) => {
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [timer, setTimer] = useState(60);
-  const router = useRouter();
+  const router = useRouter(); // TODO: Uncomment when ready to redirect
 
   // get query params
   console.log("Email from query:", email);
@@ -46,25 +47,127 @@ const VerifyOTPComponent = ({ email }: { email: string }) => {
       return;
     }
 
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      toast.success("Verification successful!", {
-        description: "Your account has been verified",
+      // 🔥 API CALL
+      const res = await verifyEmail({
+        email,
+        otp,
       });
-      router.push("/organizations");
+
+      if (res.status === 200 || res.status === 201) {
+        // Check if JWT token is stored in cookies
+        if (typeof document !== "undefined") {
+          const cookies = document.cookie.split(";");
+          console.log("All cookies after verification:", cookies);
+
+          // Check for common JWT cookie names
+          const accessToken = cookies.find((cookie) =>
+            cookie.trim().startsWith("access_token=")
+          );
+          const refreshToken = cookies.find((cookie) =>
+            cookie.trim().startsWith("refresh_token=")
+          );
+
+          console.log("Access Token Cookie:", accessToken || "Not found");
+          console.log("Refresh Token Cookie:", refreshToken || "Not found");
+        }
+
+        toast.success("Verification successful!", {
+          description: "Your account has been verified",
+        });
+
+        // TODO: Uncomment after verifying JWT token is stored in cookies
+        router.push("/organizations");
+      }
+    } catch (err: any) {
+      console.error("Verification Error:", err);
+
+      let errorMessage = "Verification failed. Please try again.";
+
+      if (err.response) {
+        const status = err.response.status;
+
+        switch (status) {
+          case 400:
+            errorMessage = err.response.data?.message || "Invalid OTP code.";
+            break;
+          case 401:
+            errorMessage = "Invalid or expired OTP code.";
+            break;
+          case 404:
+            errorMessage =
+              "Verification service not found. Please contact support.";
+            break;
+          case 500:
+          default:
+            errorMessage = "Server error. Please try again later.";
+            break;
+        }
+      } else if (err.request) {
+        errorMessage = "Network error. Check your internet connection.";
+      } else {
+        errorMessage = err.message || "Unexpected error occurred.";
+      }
+
+      toast.error("Verification failed", {
+        description: errorMessage,
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (!canResend) return;
 
-    setTimer(60);
-    toast.success("Code sent", {
-      description: "A new verification code has been sent to your email",
-    });
+    try {
+      // 🔥 API CALL
+      const res = await resentEmailVerification({
+        email,
+      });
+
+      if (res.status === 200 || res.status === 201) {
+        setTimer(60);
+        toast.success("Code sent", {
+          description: "A new verification code has been sent to your email",
+        });
+      }
+    } catch (err: any) {
+      console.error("Resend Error:", err);
+
+      let errorMessage = "Failed to resend code. Please try again.";
+
+      if (err.response) {
+        const status = err.response.status;
+
+        switch (status) {
+          case 400:
+            errorMessage = err.response.data?.message || "Invalid request.";
+            break;
+          case 404:
+            errorMessage = "Resend service not found. Please contact support.";
+            break;
+          case 429:
+            errorMessage =
+              "Too many requests. Please wait before requesting again.";
+            break;
+          case 500:
+          default:
+            errorMessage = "Server error. Please try again later.";
+            break;
+        }
+      } else if (err.request) {
+        errorMessage = "Network error. Check your internet connection.";
+      } else {
+        errorMessage = err.message || "Unexpected error occurred.";
+      }
+
+      toast.error("Failed to resend code", {
+        description: errorMessage,
+      });
+    }
   };
 
   return (
